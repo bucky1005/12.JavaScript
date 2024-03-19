@@ -55,9 +55,9 @@ console.log(`front ${front.slice(1, 3)}`);
 console.log(`front ${front}`);
 
 /* splice(인덱스, 제거할 길이, 추가할 값1, 추가할 값2, ...) */
-console.log(`front ${front.splice(1, 2, 'JDBC', 'LESS')}`);
+console.log(`front.splice(3, 1, "JDBC"):  ${front.splice(3, 1, "JDBC")}`);
 
 /* join: 배열을 우리가 원하는 구분자와 함께 결합하여 문자열로 반환 */
 const snackList = ['사탕', '초콜릿', '껌', '마이쮸'];
 console.log(`snackList.join(): ${snackList.join()}`);
-console.log()
+console.log(`snackList.join('/'): ${snackList.join('/')}`);
