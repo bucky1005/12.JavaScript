@@ -9,9 +9,13 @@ console.log(arrCopy);
 console.log(arr === arrCopy);
 
 /* 2. 객체 복사 */
-let obj = { name: '홍길동', age: 20 };
-let objCopy = {...obj, name};
+let obj = { name: '홍길동', age: 20, addr: '서울시', hobby: ['축구', '야구'] };
+let objcopy1 = {...obj };
+let age = 30;
+let name = '고길동'
+let objCopy = {...obj, age, name};    // ...obj는 전개연산자이면서 나머지 연산자의 역할을 하기도 함.
 
 console.log(obj);
+console.log(objcopy1);
 console.log(objCopy);
 console.log(obj === objCopy);
