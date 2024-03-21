@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        /* promise를 더 쉽게 사용할 수 있게 async/await가 ES8(2017)에서 추가되었다. */
+
+        /* then 방식은 promise를 처리하기 위한 별도의 함수가 필요 없었지만, 
+          await 방식은 반환된 promise 객체를 처리하기 위한 run 함수가 필요
+        */
+        function increase(number) {
+            const promise = new Promise((resolve, reject) => { // Promise 객체를 생성할 때 콜백 메소드로 setTimeout이 실행됨
+                setTimeout(() => {                              // setTimeout 안에는 resolve와 reject 함수가 실행되도록 작성 되어있음.
+                    const result = number + 10;
+
+                    if(result > 50) {
+                        const e = new Error('NumberTooBig');
+
+                        return reject(e);
+                    }
+                    return resolve(result);
+                }, 1000);
+            })
+            
+            return promise;
+        }
+
+        /* run 함수 안에서는 await에 의해 비동기 방식도 동기식으로(병렬적으로 출발하지만 처리 순서를 가지게 함) 활용할 수 있음*/
+        /*
+            await의 두 가지 기능
+            1. await가 달린 함수의 결과인 promise에 담긴 결과(promise 내부의 resolve에 담긴 성공 결과)를 반환한다.(then과 비슷)
+            2. await가 달린 비동기 처리들은 그들 간에는 동기식으로 동작하게 된다.
+            (await를 쓰기 위해서 함수에 async를 달면 그 async 함수는 promise를 반환한다.)
+        */
+        async function run(num) {
+            console.log(num);
+            for(let i = 0 ; i < 1000000000; i++) {
+                
+            }
+
+            let result = await increase(0);     // await를 사용하려면 function 앞에 async 키워드를 붙여서 비동기 처리용 함수임을 명시
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result = await increase(result);
+            console.log(result);
+
+            result =  increase(result);
+            console.log(result);
+
+            /* 아래 코드까지 실행하면 result > 50이 되어 오류 발생*/
+            // result = await increase(result);
+            // console.log(result);
+
+            console.log('end');
+
+            return 1;                           // 해당 리턴값은 promise의 resolve로 들어가서 반환값으로 나오게 됨
+        }
+
+        console.log('반환값: ', run());
+        run().then(result => console.log(result));
+
+
+    </script>
+</body>
+</html>
